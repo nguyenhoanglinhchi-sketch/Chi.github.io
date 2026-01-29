@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Memory</title>
-
+  <title>For You ❤️</title>
   <style>
     body {
       margin: 0;
@@ -11,15 +10,61 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: white;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #fbd3e9, #bb377d);
+      font-family: "Segoe UI", sans-serif;
     }
 
-    .polaroid {
-      width: 300px;
-      height: 380px;
-      perspective: 1000px;
+    /* Heart */
+    .heart {
+      width: 100px;
+      height: 100px;
+      background: red;
+      position: relative;
+      transform: rotate(-45deg);
       cursor: pointer;
+      animation: pulse 1.5s infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 100px;
+      height: 100px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .heart::before {
+      top: -50px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 50px;
+      top: 0;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1) rotate(-45deg); }
+      50% { transform: scale(1.1) rotate(-45deg); }
+      100% { transform: scale(1) rotate(-45deg); }
+    }
+
+    /* Hidden content */
+    .content {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Polaroid */
+    .polaroid {
+      background: white;
+      padding: 15px 15px 50px;
+      width: 300px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      text-align: center;
     }
 
     .polaroid-inner {
@@ -58,35 +103,46 @@
       justify-content: center;
       text-align: center;
       font-size: 16px;
-      line-height: 1.5;
       color: #444;
+      line-height: 1.5;
     }
   </style>
 </head>
-
 <body>
 
-  <div class="polaroid" id="polaroid">
-    <div class="polaroid-inner">
+  <!-- Heart -->
+  <div class="heart" id="heart"></div>
 
-      <!-- FRONT -->
-      <div class="polaroid-front">
-        <img src="photo.jpg" alt="Memory">
+  <!-- Content -->
+ <div class="content" id="content">
+    <div class="polaroid" id="polaroid">
+      <div class="polaroid-inner">
+
+        <div class="polaroid-front">
+          <img src="photo.jpg" alt="Memory">
+        </div>
+
+        <div class="polaroid-back">
+          <p>
+            This moment means more to me than words can say 💜<br>
+            Thank you for being part of my life.
+          </p>
+        </div>
+
       </div>
-
-      <!-- BACK -->
-      <div class="polaroid-back">
-        <p>
-          This moment means more to me than words can say 💜<br>
-          Thank you for being part of my life.
-        </p>
-      </div>
-
     </div>
   </div>
 
   <script>
+    const heart = document.getElementById("heart");
+    const content = document.getElementById("content");
     const polaroid = document.getElementById("polaroid");
+
+    heart.addEventListener("click", () => {
+      heart.style.display = "none";
+      content.style.display = "block";
+    });
+
     polaroid.addEventListener("click", () => {
       polaroid.classList.toggle("flipped");
     });
